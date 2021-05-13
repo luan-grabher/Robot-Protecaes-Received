@@ -47,20 +47,20 @@ public class Main {
 
             StringBuilder returnExecutions = new StringBuilder();
 
-            String[] templates = ini.get("Config", "templates").split(";");
+            //String[] templates = ini.get("Config", "templates").split(";");
             //Para cada template pega as informações
-            for (String template : templates) {
-                template = !template.equals("") ? " " + template : "";
+            //for (String template : templates) {
+                //template = !template.equals("") ? " " + template : "";
 
-                String comparar = template + (template.equals("") ? "" : " ") + "Comparar";
+                //String comparar = template + (template.equals("") ? "" : " ") + "Comparar";
 
-                Map<String, Object> templateConfig = getTemplateConfig(template);
-                Map<String, Object> compararConfig = getTemplateConfig(comparar);
+                Map<String, Object> templateConfig = getTemplateConfig("");
+                //Map<String, Object> compararConfig = getTemplateConfig(comparar);
 
                 returnExecutions.append("\n").append(
-                        start(mes, ano, pastaEmpresa, pastaAnual, pastaMensal, templateConfig, compararConfig)
+                        start(mes, ano, pastaEmpresa, pastaAnual, pastaMensal, templateConfig, null)
                 );
-            }
+            //}
 
             robo.setNome(nomeApp);
             robo.executar(returnExecutions.toString());
@@ -85,7 +85,7 @@ public class Main {
      *
      * @param template Nome do template na seção ini
      */
-    private static Map<String, Object> getTemplateConfig(String template) {
+    private static Map<String, Object> getTemplateConfig(String template) {        
 
         //Se não encontrar a seção do template, retorna null
         if (ini.get("Template" + template, "nome") == null) {
@@ -147,17 +147,21 @@ public class Main {
         }
 
         ControleTemplates controle = new ControleTemplates(mes, ano);
+        Model model = new Model();
+        
         controle.setPastaEscMensal(pastaEmpresa);
         controle.setPasta(pastaAnual, pastaMensal);
 
         Map<String, Executavel> execs = new LinkedHashMap<>();
+        execs.put("Conectando ao banco de dados", model.new connectDatabase());
+        
         execs.put("Procurando arquivo " + templateConfig.get("filtroArquivo"), controle.new defineArquivoNaImportacao((String) templateConfig.get("filtroArquivo"), importation));
 
         if (compararConfig != null) {
             execs.put("Procurando arquivo " + compararConfig.get("filtroArquivo"), controle.new defineArquivoNaImportacao((String) compararConfig.get("filtroArquivo"), importation));
         }
-
-        execs.put("Criando template " + templateConfig.get("nome"), controle.new converterArquivoParaTemplate(importation, importationC));
+        
+        execs.put("Criando template " + templateConfig.get("nome"), model.new converterArquivoParaTemplate(importation, mes, ano));
 
         return AppRobo.rodarExecutaveis(nomeApp, execs);
     }
