@@ -4,11 +4,16 @@ import Entity.Executavel;
 import TemplateContabil.Model.Entity.Importation;
 import TemplateContabil.Model.Entity.LctoTemplate;
 import TemplateContabil.Model.ImportationModel;
+import fileManager.FileManager;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import sql.Database;
 
 public class Model {
+    String sqlGetDocParticipant = FileManager.getText(".\\sql\\protecaesReceivedGetDocParticipant.sql");
+    
     
     public class connectDatabase extends Executavel {
         @Override
@@ -47,17 +52,18 @@ public class Model {
             
             //Percorre lctos para pegar
             for (LctoTemplate lcto : lctos) {
+                Map<String,String> swaps =  new HashMap<>();
+                swaps.put("doc", lcto.getDocumento());
+                        
                 
+                List<String[]> result = Database.getDatabase().select(sqlGetDocParticipant, swaps);
+                
+                if(!result.isEmpty()){
+                    lcto.setComplementoHistorico(lcto.getComplementoHistorico()  + " PARTICIPANTE " + result.get(0)[0]);
+                }
             }
             
             modelo.criarTemplateDosLancamentos(importation);
         }
-    }
-    
-    /**/
-    private static void defineParticipantCodes(ImportationModel importation){
-        
-        
-        
     }
 }
