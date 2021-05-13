@@ -45,7 +45,10 @@ public class Model {
             //Pega lctos
             List<LctoTemplate> lctos = importation.getLctos();
             
-            //Percorre lctos para pegar 
+            //Percorre lctos para pegar
+            for (LctoTemplate lcto : lctos) {
+                
+            }
             
             modelo.criarTemplateDosLancamentos(importation);
         }

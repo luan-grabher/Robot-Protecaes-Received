@@ -1,0 +1,8 @@
+select
+BDCODTERCEIROD
+from VSUC_EMPRESAS_TLAN l
+where
+l.BDDEBITO = 16 AND
+l.BDCODEMP = 331 AND
+l.BDCOMPL LIKE '%:doc%'
+
