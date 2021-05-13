@@ -1,6 +1,7 @@
 package ContabilityTemplateImportation;
 
 import Entity.Executavel;
+import SimpleView.Loading;
 import TemplateContabil.Model.Entity.Importation;
 import TemplateContabil.Model.Entity.LctoTemplate;
 import TemplateContabil.Model.ImportationModel;
@@ -50,8 +51,14 @@ public class Model {
             //Pega lctos
             List<LctoTemplate> lctos = importation.getLctos();
             
+            //Loading
+            Loading loading = new Loading("Buscando participantes", 0, lctos.size());
+            
             //Percorre lctos para pegar
             for (LctoTemplate lcto : lctos) {
+                //loading
+                loading.next();
+                
                 Map<String,String> swaps =  new HashMap<>();
                 swaps.put("doc", lcto.getDocumento());
                         
@@ -62,6 +69,9 @@ public class Model {
                     lcto.setComplementoHistorico(lcto.getComplementoHistorico()  + " PARTICIPANTE " + result.get(0)[0]);
                 }
             }
+            
+            //remove loading
+            loading.dispose();
             
             modelo.criarTemplateDosLancamentos(importation);
         }
