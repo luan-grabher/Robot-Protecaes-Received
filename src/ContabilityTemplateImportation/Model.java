@@ -59,14 +59,16 @@ public class Model {
                 //loading
                 loading.next();
                 
-                Map<String,String> swaps =  new HashMap<>();
-                swaps.put("doc", lcto.getDocumento());
-                        
-                
-                List<String[]> result = Database.getDatabase().select(sqlGetDocParticipant, swaps);
-                
-                if(!result.isEmpty()){
-                    lcto.setComplementoHistorico(lcto.getComplementoHistorico()  + " PARTICIPANTE " + result.get(0)[0]);
+                if(lcto.getDocumento() != null && !"".equals(lcto.getDocumento())){                
+                    Map<String,String> swaps =  new HashMap<>();
+                    swaps.put("doc", lcto.getDocumento());
+
+
+                    List<String[]> result = Database.getDatabase().select(sqlGetDocParticipant, swaps);
+
+                    if(!result.isEmpty()){
+                        lcto.setComplementoHistorico(lcto.getComplementoHistorico()  + " PARTICIPANTE " + result.get(0)[0]);
+                    }
                 }
             }
             
