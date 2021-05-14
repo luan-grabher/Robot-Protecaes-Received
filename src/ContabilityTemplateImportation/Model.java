@@ -13,7 +13,7 @@ import java.util.Map;
 import sql.Database;
 
 public class Model {
-    String sqlGetDocParticipant = FileManager.getText(".\\sql\\protecaesReceivedGetDocParticipant.sql");
+    String sqlGetDocParticipant = FileManager.getText(FileManager.getFile(".\\sql\\protecaesReceivedGetDocParticipant.sql"));
     
     
     public class connectDatabase extends Executavel {
