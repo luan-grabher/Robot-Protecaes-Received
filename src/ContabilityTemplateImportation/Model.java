@@ -13,9 +13,8 @@ import java.util.Map;
 import sql.Database;
 
 public class Model {
-    String sqlGetDocParticipant = FileManager.getText(FileManager.getFile(".\\sql\\protecaesReceivedGetDocParticipant.sql"));
     
-    
+        
     public class connectDatabase extends Executavel {
         @Override
         public void run() {
@@ -45,6 +44,8 @@ public class Model {
 
         @Override
         public void run() {
+            String sqlGetDocParticipant = FileManager.getText(FileManager.getFile(".\\sql\\protecaesReceivedGetDocParticipant.sql"));
+            
             //Chama o modelo da importação que irá criar o template e gerar warning se algo der errado
             ImportationModel modelo = new ImportationModel(importation.getNome(), mes, ano, importation, null);
             
