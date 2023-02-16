@@ -1,8 +1,7 @@
-package teste;
-
+package Tests;
 import ContabilityTemplateImportation.Main;
 
-public class teste {
+public class MainTest {
 
     public static void main(String[] args) {
         StringBuilder parametros = new StringBuilder();
