@@ -18,7 +18,7 @@ public class Model {
     public class connectDatabase extends Executavel {
         @Override
         public void run() {
-            File file = new File("\\\\zac\\robos\\Tarefas\\Arquivos\\sci.cfg");
+            File file = new File(Config.config.fetch("files", "databaseConfig"));
             
             Database.setStaticObject(new Database(file));
             

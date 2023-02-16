@@ -30,7 +30,7 @@ public class Main {
                 robo.definirParametros(testParameters);
             }
 
-            String iniPath = "\\\\heimerdinger\\docs\\Informatica\\Programas\\Moresco\\Robos\\Contabilidade\\TemplateImportacao\\";
+            String iniPath = Config.config.fetch("folders", "templateConfig");
             String iniName = robo.getParametro("ini");
 
             ini = new Ini(FileManager.getFile(iniPath + iniName + ".ini"));
@@ -47,20 +47,11 @@ public class Main {
 
             StringBuilder returnExecutions = new StringBuilder();
 
-            //String[] templates = ini.get("Config", "templates").split(";");
-            //Para cada template pega as informações
-            //for (String template : templates) {
-                //template = !template.equals("") ? " " + template : "";
+            Map<String, Object> templateConfig = getTemplateConfig("");
 
-                //String comparar = template + (template.equals("") ? "" : " ") + "Comparar";
-
-                Map<String, Object> templateConfig = getTemplateConfig("");
-                //Map<String, Object> compararConfig = getTemplateConfig(comparar);
-
-                returnExecutions.append("\n").append(
-                        start(mes, ano, pastaEmpresa, pastaAnual, pastaMensal, templateConfig, null)
-                );
-            //}
+            returnExecutions.append("\n").append(
+                    start(mes, ano, pastaEmpresa, pastaAnual, pastaMensal, templateConfig, null)
+            );
 
             robo.setNome(nomeApp);
             robo.executar(returnExecutions.toString());
