@@ -1,8 +1,8 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "e:\\Documents\\Projetos\\Moresco\\AccountingTemplate\\AccountingTemplate.jar",
-        "e:\\Documents\\Projetos\\Moresco\\Sql\\Sql.jar"
+        "c:\\Users\\luan\\Documents\\Projetos\\Moresco\\AccountingTemplate\\AccountingTemplate.jar",
+        "c:\\Users\\luan\\Documents\\Projetos\\Moresco\\Sql\\Sql.jar"
     ],
     "java.project.sourcePaths": [
         "src"
